@@ -1,15 +1,16 @@
 const express = require('express')
+const Posts = require('../models/posts')
 
 require('../db/mongoose')
-//const fishRouter = require('./routers/fish')
 
 const port = process.env.PORT
+
 // express app
 const app = express();
 
 // listen for requests
 app.listen(port, () => {
-	console.log(`Server listening for port ${process.env.PORT}`)
+	console.log(`Server listening for port port`)
 });
 
 // register view engine
@@ -26,18 +27,26 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.get('/', (req, res) => {
-	res.render('index', { title: 'Quizz questions'});
+
+app.get('/', async(req, res) => {
+	const posts = await Posts.find({})
+	res.render('index', { title: 'Blog', posts: posts});
 });
 
-app.get('/form-quizz', (req, res) => {
-	res.render('form-quizz', { title: 'Quizz questions'});
+app.get('/full-post/:id', async(req, res) => {
+	const post = await Posts.findById(req.params.id)
+	res.render('full-post', { title: 'Post', post: post});
 });
+
+app.get('/form-post', (req, res) => {
+	res.render('form-post', { title: 'Send Post'});
+});
+ 
 
 //Api
-const questionsRouter = require('../routers/questions')
+const blog = require('../routers/posts')
 app.use(express.json())
-app.use('/api', questionsRouter)
+app.use('/api', blog)
 
 
 // 404 page

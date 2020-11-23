@@ -1,12 +1,18 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
 
-const Question = mongoose.model('Questions', {
-	question: {
+const Post = mongoose.model('posts', {
+	title: {
 		type: String,
 		required: true
 	},
-	answers: [answerSchema]
+	snippet: {
+		type: String,
+		required: true
+	},
+	body: {
+		type: String,
+		required: true
+	}
 })
 
-module.exports = Question
+module.exports = Post

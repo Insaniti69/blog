@@ -1,0 +1,21 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+	<%- include("./partials/nav.ejs") %>
+	<h2>Send a Post</h2>
+	<div class="form-post">
+		<form name="formPost" id="formPost" action="/api/posts" method="post">
+			<label for="title">Title:</label>
+			<input type="text" required id="title" name="title"><br><br>
+			<label for="snippet">Snippet:</label>
+			<input type="text" required id="snippet" name="snippet"><br><br>
+			<label for="body">Body:</label>
+			<input type="text" required id="body" name="body"><br><br>
+			<input type="submit" value="Submit">
+		  </form>
+	</div>
+	<%- include("./partials/footer.ejs") %>
+	<script src="/scripts/form-post.js"></script>
+</body>
+</html>

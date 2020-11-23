@@ -1,35 +1,36 @@
 const express = require('express')
-const Question = require('../models/posts')
+const Posts = require('../models/posts')
 const router = new express.Router()
 
-router.get('/questions', async (req, res) => {
+router.get('/posts', async (req, res) => {
 	try {
-		const questions = await Question.find({})
-		if (!questions) return res.status(404).send()
-		return res.send(questions)
+		const posts = await Posts.find({})
+		if (!posts) return res.status(404).send()
+		return res.send(posts)
 	} catch (e) {
 		return res.status(500).send()
 	}
 })
 
-router.get('/questions/:id', async (req, res) => {
+router.get('/posts/:id', async (req, res) => {
 	try {
-		const questions = await Question.findById(req.params.id)
-		if (!questions) return res.status(404).send()
-		return res.send(questions)
+		const posts = await Posts.findById(req.params.id)
+		if (!posts) return res.status(404).send()
+		return res.send(posts)
 	} catch (e) {
 		return res.status(500).send()
 	}
 })
 
-router.post('/questions', async (req, res) => {
+router.post('/posts', async (req, res) => {
 	try {
-		//const oldQuestion = await Question.find({"question":req.body['question']})
-		//console.log(oldQuestion)
-		//if(oldQuestion.length > 0)	return res.send('Question already exists')
-		const questions = new Question(req.body)
-		await questions.save()
-		res.status(201).send('Question Added')
+		const oldPost = await Posts.find({"title":req.body['title']})
+		console.log('wtf')
+		console.log(req.body)
+		if(oldPost.length > 0)	return res.send('Posts already exists')
+		const posts = new Posts(req.body)
+		await posts.save()
+		res.status(201).send('Posts Added')
 	} catch (e){
 		console.log(e)
 		return res.status(400).send(e)
@@ -37,26 +38,26 @@ router.post('/questions', async (req, res) => {
 	
 })
 
-router.patch('/questions/:id', async (req, res) => {
+router.patch('/posts/:id', async (req, res) => {
 	const updates = Object.keys(req.body)
-	const allowedUpdates = ['question']
+	const allowedUpdates = ['title']
 	const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
 	if (!isValidOperation) return res.status(400).send({ error: 'Invalid updates!' })
 	try{
-		  const questions = await Question.findByIdAndUpdate(req.params.id,req.body)
-		if (!questions) return res.status(404).send()
-		  return res.send('Question updated')
+		  const posts = await Posts.findByIdAndUpdate(req.params.id,req.body)
+		if (!posts) return res.status(404).send()
+		  return res.send('Posts updated')
 	}catch{
 		return res.status(500).send()
 	}
 })
 
-router.delete('/questions/:id', async (req, res) => {
+router.delete('/posts/:id', async (req, res) => {
 	try {
-		const questions = await Question.findByIdAndDelete(req.params.id)
-		if (!questions) return res.status(404).send()
-		return res.send('Question deleted')
+		const posts = await Posts.findByIdAndDelete(req.params.id)
+		if (!posts) return res.status(404).send()
+		return res.send('Posts deleted')
 	} catch (e) {
 		return res.status(500).send()
 	}

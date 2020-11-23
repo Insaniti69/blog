@@ -6,18 +6,18 @@
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "mongoose": "^5.10.15",
+    "mongoose": "^5.10.15"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.6",
     "sass": "^1.29.0"
   },
-  "devDependencies": {
-    "dotenv": "^8.2.0"
-  },
   "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-	"dev": "nodemon -r dotenv/config app.js",
-	"sass": "sass --watch src/sass:public/css/"
+    "dev": "nodemon -r dotenv/config src/app.js",
+    "sass": "sass src/sass:public/css/"
   },
   "author": "Insaniti69",
   "license": "ISC"
