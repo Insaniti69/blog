@@ -17,7 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
     "dev": "nodemon -r dotenv/config src/app.js",
-    "sass": "sass src/sass:public/css/"
+    "sass": "sass src/sass:public/css/ --no-source-map -s compressed"
   },
   "author": "Insaniti69",
   "license": "ISC"
