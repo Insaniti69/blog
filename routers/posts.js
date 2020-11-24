@@ -42,12 +42,12 @@ router.patch('/posts/:id', async (req, res) => {
 	const updates = Object.keys(req.body)
 	const allowedUpdates = ['title']
 	const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-
+	if(updates.length == 0) return res.send('Body was not sent')
 	if (!isValidOperation) return res.status(400).send({ error: 'Invalid updates!' })
 	try{
-		  const posts = await Posts.findByIdAndUpdate(req.params.id,req.body)
+		const posts = await Posts.findByIdAndUpdate(req.params.id,req.body)
 		if (!posts) return res.status(404).send()
-		  return res.send('Posts updated')
+		return res.send('{"updated":true}')
 	}catch{
 		return res.status(500).send()
 	}
@@ -57,7 +57,7 @@ router.delete('/posts/:id', async (req, res) => {
 	try {
 		const posts = await Posts.findByIdAndDelete(req.params.id)
 		if (!posts) return res.status(404).send()
-		return res.send('Posts deleted')
+		return res.send('{"deleted":true}')
 	} catch (e) {
 		return res.status(500).send()
 	}

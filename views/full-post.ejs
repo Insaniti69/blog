@@ -3,10 +3,22 @@
 
 <body>
 	<%- include("./partials/nav.ejs") %>
-	<div class="full-post">
-		<h2><%- post.title	%></h2>
-		<p><%- post.body	%></p>
-	</div>
+	<% if (post) { %>
+		<div class="full-post" data-id="<%= post._id %>">
+			<h2><%= post.title	%></h2>
+			<p><%= post.body	%></p>
+			<div class="updateArea">
+				<h3>UPDATE TITLE</h3>
+				<textarea class="updateTitle">Example Title</textarea>
+				<div class="update">Update Title</div>
+			</div>
+			<div class="remove">Delete</div>
+		</div>
+	<% }else{ %>
+		<h2>Post not found</h2>
+	<% }%>
 	<%- include("./partials/footer.ejs") %>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="/scripts/full-post.js"></script>
 </body>
 </html>

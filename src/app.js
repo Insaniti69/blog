@@ -34,7 +34,12 @@ app.get('/', async(req, res) => {
 });
 
 app.get('/full-post/:id', async(req, res) => {
-	const post = await Posts.findById(req.params.id)
+	let post = ''
+	try{
+		post = await Posts.findById(req.params.id)
+	}catch{
+		console.log('Post not found')
+	}
 	res.render('full-post', { title: 'Post', post: post});
 });
 
